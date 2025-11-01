@@ -1,0 +1,63 @@
+body {
+
+  font-family: 'Inter', sans-serif;
+
+}
+
+.chart-container {
+
+  position: relative;
+
+  width: 100%;
+
+  max-width: 600px;
+
+  margin-left: auto;
+
+  margin-right: auto;
+
+  height: 300px;
+
+  max-height: 400px;
+
+}
+
+@media (min-width: 768px) {
+
+  .chart-container {
+
+    height: 350px;
+
+  }
+
+}
+
+.tab-button {
+
+  font-size: 0.9rem;
+
+  font-weight: 500;
+
+  padding: 0.5rem 1rem;
+
+  border-bottom: 2px solid transparent;
+
+  transition: all 0.2s ease;
+
+}
+
+.tab-button.active {
+
+  border-color: #4f46e5;
+
+  color: #4f46e5;
+
+  font-weight: 600;
+
+}
+
+.scroll-mt-20 {
+
+  scroll-margin-top: 5rem;
+
+}
