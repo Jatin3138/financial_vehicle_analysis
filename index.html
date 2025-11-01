@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>TIL: Vehicle Finance Analysis</title>
+
+  <!-- Tailwind & Chart.js -->
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Fonts -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- External CSS -->
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="bg-stone-50 text-neutral-700">
+
+  <!-- Header -->
+
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+
+    <nav class="container mx-auto flex flex-wrap justify-between items-center p-4">
+
+      <div class="font-bold text-xl text-indigo-600">
+
+        TIL: Vehicle Finance Analysis
+
+      </div>
+
+      <div class="flex space-x-4 sm:space-x-6">
+
+        <a href="#summary" class="text-sm font-medium text-gray-500 hover:text-indigo-600 transition-colors">Summary</a>
+
+        <a href="#deal" class="text-sm font-medium text-gray-500 hover:text-indigo-600 transition-colors">The Deal</a>
+
+        <a href="#impact" class="text-sm font-medium text-gray-500 hover:text-indigo-600 transition-colors">Impact</a>
+
+        <a href="#recommendations" class="text-sm font-medium text-gray-500 hover:text-indigo-600 transition-colors">Recommendations</a>
+
+      </div>
+
+    </nav>
+
+  </header>
+
+  <!-- Main Content -->
+
+  <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+    <!-- EXECUTIVE SUMMARY -->
+
+    <section id="summary" class="mb-12 scroll-mt-20">
+
+      <h2 class="text-3xl font-bold text-neutral-900 mb-4">Executive Summary: Key Financials</h2>
+
+      <p class="text-lg mb-6">
+
+        This dashboard analyzes the proposed Hire Purchase (HP) agreement from Tata Motors Finance (TMF) for acquiring new vehicles. Use the slider below to see the financial impact.
+
+      </p>
+
+      <div class="my-6 p-6 bg-white rounded-lg shadow-md">
+
+        <label for="vehicleSlider" class="block text-lg font-bold text-neutral-900 mb-2">Select Number of Vehicles:</label>
+
+        <input type="range" id="vehicleSlider" min="1" max="25" value="10" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+
+        <div class="text-center text-xl font-semibold text-indigo-600 mt-2" id="vehicleCount">10 Vehicles</div>
+
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+
+        <div class="bg-white p-6 rounded-lg shadow">
+
+          <h3 class="text-sm font-medium text-gray-500 uppercase">Total Down Payment</h3>
+
+          <p class="text-3xl font-bold text-red-600 mt-2" id="totalDP">₹12.50 Lakhs</p>
+
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow">
+
+          <h3 class="text-sm font-medium text-gray-500 uppercase">Total Amount Financed</h3>
+
+          <p class="text-3xl font-bold text-neutral-900 mt-2" id="totalFinanced">₹37.50 Lakhs</p>
+
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow">
+
+          <h3 class="text-sm font-medium text-gray-500 uppercase">Total Monthly EMI</h3>
+
+          <p class="text-3xl font-bold text-neutral-900 mt-2" id="totalEMI">₹85,650</p>
+
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow">
+
+          <h3 class="text-sm font-medium text-gray-500 uppercase">Total Interest (5 Yrs)</h3>
+
+          <p class="text-3xl font-bold text-neutral-900 mt-2" id="totalInterest">₹10.24 Lakhs</p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- DEAL SECTION -->
+
+    <section id="deal" class="mb-12 scroll-mt-20">
+
+      <h2 class="text-3xl font-bold text-neutral-900 mb-4">The Current TMF Scheme (Per Vehicle)</h2>
+
+      <p class="text-lg mb-6">
+
+        The chart below visualizes the cost of borrowing, showing how much interest is paid relative to the principal amount financed.
+
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+
+        <div class="bg-white p-6 rounded-lg shadow">
+
+          <h3 class="text-xl font-semibold text-neutral-900 mb-4">Cost Breakdown (Per Vehicle)</h3>
+
+          <ul class="space-y-2">
+
+            <li class="flex justify-between"><strong>Asset Cost Price:</strong> <span>₹5,00,000</span></li>
+
+            <li class="flex justify-between"><strong>Down Payment (25%):</strong> <span>₹1,25,000</span></li>
+
+            <li class="flex justify-between"><strong>Amount Financed:</strong> <span>₹3,75,000</span></li>
+
+            <li class="flex justify-between"><strong>Interest Rate (P.A.):</strong> <span class="font-bold text-red-600">13.5%</span></li>
+
+            <li class="flex justify-between"><strong>Term:</strong> <span>60 Months (5 Yrs)</span></li>
+
+            <li class="flex justify-between"><strong>Monthly EMI:</strong> <span>₹8,565</span></li>
+
+            <li class="flex justify-between border-t pt-2 mt-2"><strong>Total Interest Paid:</strong> <span class="font-bold">₹1,02,380</span></li>
+
+          </ul>
+
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow">
+
+          <div class="chart-container">
+
+            <canvas id="costBreakdownChart"></canvas>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- IMPACT SECTION -->
+
+    <section id="impact" class="mb-12 scroll-mt-20">
+
+      <h2 class="text-3xl font-bold text-neutral-900 mb-4">Financial Impact & Risks</h2>
+
+      <p class="text-lg mb-6">The current terms create four significant problems for TIL.</p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <div class="bg-white p-6 rounded-lg shadow">
+
+          <h3 class="text-xl font-semibold text-neutral-900 mb-2">Problem 1: Working Capital Drain</h3>
+
+          <p class="mb-4">The 25% down payment must be paid upfront, straining cash flow.</p>
+
+          <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+
+            <div class="text-sm text-red-700">Immediate Upfront Cost:</div>
+
+            <div class="text-4xl font-bold text-red-600" id="dynamicDPIssue">₹12.50 Lakhs</div>
+
+          </div>
+
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow">
+
+          <h3 class="text-xl font-semibold text-neutral-900 mb-2">Problem 2: High Financing Cost</h3>
+
+          <p class="mb-4">The 13.5% fixed rate is expensive, representing a 20.5% markup.</p>
+
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+
+            <div class="text-sm text-blue-700">Total Interest Paid:</div>
+
+            <div class="text-4xl font-bold text-blue-800" id="dynamicInterestIssue">₹10.24 Lakhs</div>
+
+          </div>
+
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow lg:col-span-2">
+
+          <h3 class="text-xl font-semibold text-neutral-900 mb-2">Analysis: Year 1 Amortization (Per Vehicle)</h3>
+
+          <p class="mb-4">Interest starts high and declines slowly; principal builds slowly.</p>
+
+          <div class="chart-container" style="max-width: 800px; height: 350px;">
+
+            <canvas id="amortizationChart"></canvas>
+
+          </div>
+
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow">
+
+          <h3 class="text-xl font-semibold text-neutral-900 mb-2">Problem 3: Fixed Repayment & Penalties</h3>
+
+          <p>Pre-closure penalties (3–5%) discourage early repayment.</p>
+
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow">
+
+          <h3 class="text-xl font-semibold text-neutral-900 mb-2">Problem 4: Growth Constraints</h3>
+
+          <p>High upfront costs limit fleet expansion opportunities.</p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- RECOMMENDATIONS -->
+
+    <section id="recommendations" class="scroll-mt-20">
+
+      <h2 class="text-3xl font-bold text-neutral-900 mb-4">Strategic Recommendations</h2>
+
+      <p class="text-lg mb-6">Click each tab to explore key strategies.</p>
+
+      <div class="bg-white rounded-lg shadow">
+
+        <div class="flex space-x-1 border-b border-gray-200 p-4">
+
+          <button data-tab-target="rec1" class="tab-button active">1. Negotiate DP</button>
+
+          <button data-tab-target="rec2" class="tab-button">2. Explore Bullet Payment</button>
+
+          <button data-tab-target="rec3" class="tab-button">3. Benchmark TCoA</button>
+
+        </div>
+
+        <div class="p-6">
+
+          <div id="rec1" role="tabpanel">
+
+            <h3 class="text-xl font-semibold text-indigo-600 mb-3">1. Negotiate Differential Down Payment</h3>
+
+            <p>Use bulk purchase leverage to reduce DP to 15% — freeing ₹10L for operations.</p>
+
+          </div>
+
+          <div id="rec2" role="tabpanel" class="hidden">
+
+            <h3 class="text-xl font-semibold text-indigo-600 mb-3">2. Explore a "Bullet Payment" HP Structure</h3>
+
+            <p>Lower EMIs now, with a final balloon payment financed by asset resale.</p>
+
+          </div>
+
+          <div id="rec3" role="tabpanel" class="hidden">
+
+            <h3 class="text-xl font-semibold text-indigo-600 mb-3">3. Benchmark Financing Options (TCoA)</h3>
+
+            <p>Compare bank and NBFC term loans to target sub-13.5% rates, no penalties.</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="text-center p-6 text-sm text-gray-500 border-t mt-12">
+
+    Interactive dashboard generated for Trans-India Logistics Ltd.
+
+  </footer>
+
+  <!-- External JS -->
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
